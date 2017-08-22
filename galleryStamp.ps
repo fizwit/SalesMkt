@@ -1,0 +1,59 @@
+%!PS
+%%Title: SMF Borehole Specimen
+%%Creator: Michael D. Mazzone
+%%CreationDate: Apr. 24, 1995
+%%EndComments
+
+%  John Dey Photography Gallery Stamp
+%  two stamps per sheet landscape
+%
+%  8.5 in = 612 pt
+%  11 in = 792 pt
+%
+%  Defines
+/in { 72 mul } bind def
+
+/Helvetica findfont 50 scalefont setfont
+
+% usage: [x] [y] <text lable> <barcode> makelabel
+/width { 3.75 72 mul } bind def
+
+/box {
+  /y exch def
+  /x exch def
+  x y moveto
+  1 setlinewidth
+  width  0   rlineto 
+  0 1.75 in  rlineto
+  width neg 0  rlineto
+  closepath stroke
+  x y moveto
+  0 0.875 in rlineto
+  width 0 rlineto 
+  0 -0.875 in rlineto fill
+  % x y origin is lower left <-> x up-down y
+
+x y moveto 8 16 rmoveto  %Lower left
+1 setgray
+{ -3.5 0 rmoveto } (Photography) kshow
+
+0 setgray
+x y moveto 6 78 rmoveto  %Lower left
+{ 6.5 0 rmoveto } (John Dey) kshow
+
+} def
+
+
+% Max height 792 - 36 - 126 = 630 
+% Max width (612 / 2) +2 = 308
+ 16 630 box
+308 630 box
+
+% Max height 720 / 2  = 360 - 126 = 234  (792 / 3 = 264 )
+ 16 386 box
+308 386 box
+
+ 16 120 box
+308 120 box
+
+showpage

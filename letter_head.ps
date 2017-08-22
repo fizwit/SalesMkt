@@ -1,0 +1,66 @@
+%!PS
+%%Title: SMF Borehole Specimen
+%%Creator: Michael D. Mazzone
+%%CreationDate: Apr. 24, 1995
+%%EndComments
+
+%  8.5 in = 612 pt
+%  11 in = 792 pt
+%
+%  Defines
+
+/in { 72 mul } bind def
+
+1 setlinewidth
+/Helvetica findfont 60 scalefont setfont
+
+% usage: [x] [y] <text lable> <barcode> makelabel
+
+/box {
+  x y moveto
+  4.5 in 0   rlineto 
+  0 1.75 in  rlineto
+  -4.5 in 0  rlineto
+  closepath stroke
+  x y moveto
+  0 0.875 in rlineto
+  4.5 in 0 rlineto 
+  0 -0.875 in rlineto fill
+} def
+
+
+/x 144 def /y 567 def
+box
+
+/x 144 def /y 567 def
+x y moveto
+8 16 rmoveto
+1 setgray
+{ -3.5 0 rmoveto } (Photography) kshow
+
+0 setgray
+/x 144 def /y 567 def
+x y moveto
+12 78 rmoveto
+{ 6.5 0 rmoveto } (John Dey) kshow
+
+
+
+
+
+/Helvetica findfont 40 scalefont setfont
+/x 306 def /y 340 def  % centered on x cord
+
+x y moveto
+%(John Dey Photography Has) dup stringwidth pop 2 div neg 0 rmoveto show
+
+ 
+/y y 64 sub def x y moveto
+%(A New Phone Number.) dup stringwidth pop 2 div neg 0 rmoveto show
+ 
+
+/y y 64 sub def x y moveto
+x 72 moveto
+(702.217.7987) dup stringwidth pop 2 div neg 0 rmoveto show
+
+showpage

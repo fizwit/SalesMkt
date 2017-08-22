@@ -1,0 +1,55 @@
+%!PS
+%%Title:   John Dey Photography Full Sheet Logo 
+%%Creator: John Dey 
+%%CreationDate: May  04, 2015
+%   %%CreationDate: Apr. 24, 1995
+%%EndComments
+
+%  8.5 in = 612 pt  (306 center)
+%  11 in = 792 pt
+%  Layout setup for 8x10 paper
+
+%  Defines
+/in { 72 mul } bind def
+1 setlinewidth
+/Helvetica findfont 60 scalefont setfont
+
+% usage: [x] [y] logo 
+/logo {
+  /y exch def
+  /x exch def
+  % Box
+  x y moveto
+  4.5 in 0   rlineto 
+  0 1.75 in  rlineto
+  -4.5 in 0  rlineto
+  closepath stroke
+  x y moveto
+  0 0.875 in rlineto
+  4.5 in 0 rlineto 
+  0 -0.875 in rlineto fill
+  % Top Text
+    0 setgray
+    /x 144 def /y 400 def
+    x y moveto
+    12 78 rmoveto
+    { 6.5 0 rmoveto } (John Dey) kshow
+  % bottom Text
+    x y moveto
+    8 16 rmoveto
+    1 setgray
+    { -3.5 0 rmoveto } (Photography) kshow
+    0 setgray
+} def
+
+144 400 logo
+
+/Courier findfont 40 scalefont setfont
+306 72 moveto
+(360.649.2731) dup stringwidth pop 2 div neg 0 rmoveto show
+
+/Courier findfont 30 scalefont setfont
+306 112 moveto
+(john@fuzzdog.com) dup stringwidth pop 2 div neg 0 rmoveto show
+
+showpage

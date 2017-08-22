@@ -1,0 +1,148 @@
+%!PS-Adobe
+%%DocumentFonts: Helvitica-Bold Helvitica
+%%Title: 7/14 Event Calender
+%%Creator: John Dey  TRW
+%%CreationDate: June 6, 1994
+%%Pages: 1
+%%EndComments
+
+%
+%  User defineable parameters
+%
+/Company1 (Customer Name) def
+/Company2 (Cust line two) def
+/Company3 (Cust line three) def
+/Company4 (Cust line four) def
+
+/in {72 mul} def  %Don't change
+/yor 1 in def  %Y Lower corner of grid box
+/xorig .7 in def  %X Lower corner of grid box
+/grid_height 6.3 in def  %height of  grid (should be mul of line_width)
+/grid_width 7 in def  %width of grid  
+/line_width .35 in def % height of lines
+/quant_width .5 in def % width of quantity column
+/uprice_width .75 in def % width of unit price column
+/price_width  .75 in def % width of amount column
+/hheight .5 in def  %height of title box
+/ystart 730 def
+
+%rule thickness
+/rw 2 def %rule thinkness for bounding box
+/header_rw 1 def %rule thikness for header
+/event_rw .3 def %rule thickness between events
+
+%fonts
+/title_font /Bookman-Demi findfont 14 scalefont def
+/r_font /Bookman-Light findfont 12 scalefont def
+/header_font /Bookman-Light findfont 10 scalefont def
+
+%------------------------------------------------------------
+% Very fragil stuff from here on.
+%------------------------------------------------------------
+
+% Center of document
+/cc grid_width 2 div xorig add def
+% Right margin
+/rm xorig grid_width add 1.5 in sub def
+
+%left justifiy text stack: x y string
+/line {exch y moveto show stroke /y y 16 sub def} def
+
+
+%Right justifiy stack: x, y, string
+/right {dup /str exch def stringwidth pop /strw exch def moveto 
+ strw neg 0 rmoveto str show stroke} def
+
+% Center text stack: y (string)
+/center_text {dup /str exch def stringwidth pop 2 div neg cc add exch moveto
+ str show stroke } def
+
+% Store string width in <strw> leave string on top of stack
+/getstrwid { dup stringwidth pop /strw exch def } def
+
+%  Set right margin and put some text in upper right corner
+r_font setfont
+/y ystart def
+rm (Invoice# 1234) line 
+rm (Date:  today) line 
+
+
+% Company
+/y ystart def
+xorig (John Dey Photography) line
+xorig (370 Heath Ct) line
+xorig (Henderson NV 89014) line
+xorig (435-2180) line
+xorig (dey@netcom.com) line
+
+/y yor grid_height add .75 in add def
+xorig y moveto (Sold To) show
+/xCust xorig 1 in add def
+/y yor grid_height add 1 in add def 
+xCust Company1 line 
+xCust Company2 line 
+xCust Company3 line 
+xCust Company4 line 
+
+% Set line width and style
+ 2 setlinecap  %line goes past point to make square boxes
+ header_rw setlinewidth
+% Draw Sold To Line
+ newpath
+ xorig .75 in add yor grid_height add 10 add moveto
+ 0 1 in rlineto  stroke
+ 
+% Draw box for grid 
+ rw setlinewidth
+ newpath xorig yor moveto
+ 0 grid_height rlineto
+ grid_width 0 rlineto
+ 0 grid_height neg rlineto
+ closepath stroke %draw bounding box
+% Draw total price box
+ newpath xorig grid_width add yor moveto
+ 0 line_width neg rlineto
+ price_width neg 0 rlineto
+ 0 line_width rlineto
+ closepath stroke
+
+% draw header box
+ header_rw setlinewidth
+ newpath
+ xorig yor grid_height add line_width sub moveto
+ grid_width 0 rlineto stroke %draw header box
+
+% draw horizontal lines in box
+ event_rw setlinewidth
+ 1 1 grid_height line_width div cvi {newpath
+        line_width mul yor add xorig exch moveto
+        grid_width 0 rlineto stroke } for %draw lines 
+
+ header_font setfont
+/y2 yor grid_height add line_width sub 6 add def
+ xorig 3 add
+  y2 moveto (QTY) show
+ xorig 1 in add quant_width add 
+  y2 moveto (Description) show
+ xorig 3 add grid_width add price_width sub uprice_width sub
+  y2 moveto (Unit Price) show
+ xorig 3 add grid_width add price_width sub
+  y2 moveto (Amount) show
+
+% Total Text
+xorig grid_width add price_width sub 4 sub 
+yor line_width sub (Total) right
+xorig yor line_width sub moveto (Please make check payable to John Dey) show
+
+% Vertical Lines in grid
+ event_rw setlinewidth
+ newpath xorig quant_width  add yor moveto
+ 0 grid_height rlineto stroke
+ newpath xorig grid_width add price_width sub uprice_width sub yor moveto
+ 0 grid_height rlineto stroke
+ newpath xorig grid_width add price_width sub yor moveto
+ 0 grid_height rlineto stroke
+
+
+showpage
+%%Trailer
