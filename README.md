@@ -2,7 +2,7 @@
 
 ### Business cards and gallery tags for John Dey Photograpy
 
-![alt text](logo.jpg "Bussines Card")
+![Business Card](Logo.jpg)
 
 **Why are your business card a program?**
 
