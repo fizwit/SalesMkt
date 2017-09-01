@@ -4,7 +4,7 @@
 
 ![Business Card](Logo.jpg)
 
-**Why are your business card a program?**
+**Why is your business card a program?**
 
 My career as a programmer began during the early 80’s at dawn of computer typesetting. Electronic Typesetting was radically new stuff. I started working with TeX and postscript. I was developing C programs to write both TeX and postscript. The idea was to take unformatted
 text and typeset it.
