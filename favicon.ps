@@ -1,0 +1,97 @@
+%!PS
+%%Title: Square Logo 
+%%Creator: John Dey 
+%%CreationDate: Sept 6, 2017 
+%
+% my best logo code ever
+%
+%%EndComments
+
+%  John Dey Square Logo for Wegsite use
+%
+%
+%  Defines
+/in { 72 mul } bind def
+
+% usage: [x] [y] <text lable> <barcode> makelabel
+/width { 2.5 in } bind def
+/TextWidth { 2.175 in } def
+
+%
+%  Height is Logo Height only
+/height { 2.5 72 mul } bind def
+/halfH { height 2 div } bind def
+/quarter { height 4 div } bind def
+
+
+/center {
+    %% inputs: string
+    %% side effects: shiftX (ammount shift to allow string width to be centered on <width>
+    /MyString exch def 
+    /cWid MyString stringwidth pop def
+    /shiftX width cWid sub 2 div def
+} def
+
+/kern2width {
+    %% inputs Global: <with> and <TextWidth>
+    %% inputs arguments: <string> <MyWidth>
+    %% side effects: kernX amount to kern to make <string> fit <width>
+    %%     shiftX: center based on <width>
+    /MyWidth exch def
+    /MyString exch def 
+    /NumChars MyString length 1 sub def /cWid MyString stringwidth pop def
+    /kernX MyWidth cWid sub NumChars div def
+    /newWid kernX NumChars mul cWid add def
+    /shiftX width newWid sub 2 div def
+} def
+
+/kernNcenter {
+    %% inputs: string
+    %% side effects: shiftX (shift ammount to allow string width to be centered on <width>
+    %%               and fit into <TextWidth>
+    /MyString exch def 
+    /NumChars MyString length 1 sub def /cWid MyString stringwidth pop def
+    /kernX TextWidth cWid sub NumChars div def
+    /newWid kernX NumChars mul cWid add def
+    /shiftX width newWid sub 2 div def
+} def
+
+/box {
+  % re-factor to make x y upper left
+  /y exch def
+  /x exch def
+  % outer Box
+  x y moveto
+  1 setlinewidth
+  width  0   rlineto 
+  0 height neg rlineto
+  width neg 0  rlineto
+  closepath stroke
+  % Lower black box "Photography"
+  x y height sub moveto
+  0 height 2 div rlineto
+  width 0 rlineto 
+  0 height 2 div neg rlineto fill
+  %
+
+/Helvetica-Bold findfont 68 scalefont setfont
+1 setgray
+(John) center
+
+(Dey) cWid kern2width
+x y height sub moveto shiftX 22 rmoveto  %Lower left + 40 right [down 10]
+{ kernX 0 rmoveto } (Dey) kshow
+
+0 setgray
+(John) center 
+x y halfH sub moveto shiftX 16 rmoveto  %Lower left   % down 8 right 20
+(John) show
+
+} def
+
+
+% Max height 792 - 36 - 126 = 630 
+% Max width (612 / 2) +2 = 308
+162 540 box
+
+showpage
