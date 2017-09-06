@@ -1,72 +1,78 @@
 %!PS
-%%Title: SMF Borehole Specimen
-%%Creator: Michael D. Mazzone
-%%CreationDate: Apr. 24, 1995
+%%Title: galleryStamp
+%%Creator: John Dey
+%%CreationDate: Sept 1,2017
 %%EndComments
 
 %  John Dey Photography Gallery Stamp
-%  two stamps per sheet landscape
+%  Four stamps per sheet
 %
-%  8.5 in = 612 pt
-%  11 in = 792 pt
-%
+%  To be used to label photographs. Place on back of matted prints.
+%  Title, Edition, Date, Signature
+
 %  Defines
 /in { 72 mul } bind def
 
 /Helvetica findfont 50 scalefont setfont
 
-% usage: [x] [y] <text lable> <barcode> makelabel
-/width { 3.75 72 mul } bind def
-%
-%  Height is Logo Height only
-/height { 1.75 72 mul } bind def
-/halfH { height 2 div } bind def
+% Logo Size; Width and Height
+/LogoWid { 3.75 in} bind def
+/LogoHgt { 4 in } bind def
 
-/box {
+%  Height of text box
+/textH { 1.75 72 mul } bind def
+% Half Height of text box
+/halfH { textH 2 div } bind def
+
+%------ try not to change anything below -----
+/logo {
   % re-factor to make x y upper left
   /y exch def
   /x exch def
   % outer Box
   x y moveto
   1 setlinewidth
-  width  0   rlineto 
-  0 4 in neg rlineto
-  width neg 0  rlineto
+  LogoWid  0   rlineto
+  0 LogoHgt neg rlineto
+  LogoWid neg 0  rlineto
   closepath stroke
   % Lower black box "Photography"
-  x y height sub moveto
-  0 height 2 div rlineto
-  width 0 rlineto 
-  0 height 2 div neg rlineto fill
+  x y textH sub moveto
+  0 textH 2 div rlineto
+  LogoWid 0 rlineto
+  0 textH 2 div neg rlineto fill
   %
-  % draw a few lines
+  % draw a few lines below the logo
   .5 setlinewidth
-  /lineheight 48 def
-  x y height sub lineheight sub moveto
-  width 0 rlineto closepath stroke
-  x y height sub lineheight 2 mul sub moveto
-  width 0 rlineto closepath stroke
-  x y height sub lineheight 3 mul sub moveto
-  width 0 rlineto closepath stroke
+  /lineheight 40.5 def
+  x 12 add     y textH sub lineheight sub moveto
+  LogoWid 24 sub 0 rlineto closepath stroke
+  x 12 add     y textH sub lineheight 2 mul sub moveto
+  LogoWid 24 sub 0 rlineto closepath stroke
+  x 12 add     y textH sub lineheight 3 mul sub moveto
+  LogoWid 24 sub 0 rlineto closepath stroke
 
-x y height sub moveto 8 16 rmoveto  %Lower left
+x y textH sub moveto 8 16 rmoveto  %Lower left
 1 setgray
 { -3.5 0 rmoveto } (Photography) kshow
 
 0 setgray
-x y height 2 div sub moveto 6 16 rmoveto  %Lower left
+x y textH 2 div sub moveto 6 16 rmoveto  %Lower left
 { 6.5 0 rmoveto } (John Dey) kshow
 
 } def
 
+%---- Lets render some logo's --------
+% half inch Vertical padding above below each logo 
+% quarter inch padding left right for each logo
 
-% Max height 792 - 36 - 126 = 630 
-% Max width (612 / 2) +2 = 308
- 16 720 box
-308 720 box
-
-% Max height 720 / 2  = 360 - 126 = 234  (792 / 3 = 264 )
- 16 360 box
-308 360 box
+% Upper Left
+ 18 738 logo
+% Upper Right
+324 738 logo
+% Lower Left
+ 18 342 logo
+% Lower Right
+324 342 logo
 
 showpage
