@@ -1,0 +1,91 @@
+%!PS
+%%Title: John Dey Photography Logo 
+%%Creator: John Dey 
+%%CreationDate: Sept 6, 2017 
+%
+% my best logo code ever
+%
+%%EndComments
+
+%  John Dey Standard Logo for Wegsite use
+%  ps -> pdf -> png
+%
+%  Defines
+/in { 72 mul } bind def
+
+% Overall width of log <width>
+/width { 4.5 in } bind def
+% Overall height of Logo
+/height { 2.00  72 mul } bind def
+% <TextWidth> width of Text inside Logo 
+/TextWidth { 4.25 in } def
+
+%  dirivative sizes DO NOT CHANGE 
+/halfH { height 2 div } bind def
+/quarter { height 4 div } bind def
+
+/kernNcenter {
+    %% inputs: string
+    %% side effects: <shiftX> (shift ammount to allow string width to be centered on <width>
+    %%               and fit into <TextWidth>
+    %%               <kernX> kern amounted needed for kshow, for fitting text to <TextWidth>
+    /MyString exch def 
+    /NumChars MyString length 1 sub def /cWid MyString stringwidth pop def
+    /kernX TextWidth cWid sub NumChars div def
+    /newWid kernX NumChars mul cWid add def
+    /shiftX width newWid sub 2 div def
+} def
+
+/Logo {
+  % x y locate upper left of Logo
+  /y exch def
+  /x exch def
+  % fill upper half of logo
+  .75 setgray
+  x y moveto
+  width  0   rlineto 
+  0 height neg rlineto
+  width neg 0  rlineto
+  closepath fill 
+  % Draw upper box with
+  1 setlinewidth
+  0 setgray
+  x y moveto
+  width  0   rlineto 
+  0 height neg rlineto
+  width neg 0  rlineto
+  closepath stroke 
+  % fill Lower black box "Photography"
+  0 setgray
+  x y height sub moveto
+  0 halfH rlineto
+  width 0 rlineto 
+  0 halfH neg rlineto fill
+  %
+
+  /Helvetica findfont 68 scalefont setfont
+  % White text on black ground
+  1 setgray
+  (Photography) kernNcenter 
+  x y height sub moveto shiftX 18 rmoveto
+  { kernX 0 rmoveto } (Photography) kshow
+  
+  
+  /Helvetica-Bold findfont 68 scalefont setfont
+  0 setgray
+  (John Dey) kernNcenter 
+  x y halfH sub moveto shiftX 18 rmoveto
+  {kernX 0 rmoveto } (John Dey) kshow
+} def
+
+% Letter size paper 8.5 x 11
+/paperWid 612 def
+/paperH 792 def
+% 
+% Draw Logo in the middle of the paper 
+%
+paperWid width sub 2 div
+paperH 2 div halfH add
+Logo 
+
+showpage
