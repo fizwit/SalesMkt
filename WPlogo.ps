@@ -1,15 +1,21 @@
 %!PS
-%%Title: John Dey Photography Logo 
-%%Creator: John Dey 
-%%CreationDate: Sept 6, 2017 
+%%Title: John Dey Photography Logo
+%%Creator: John Dey
+%%CreationDate: Sept 6, 2017
 %
 % my best logo code ever
+% History: First use was around 1996 when I photographed for YESCO in 
+% Las Vegas
+%
+% Changes: Use Bold font for 'John Dey' 
+% Use 20% gray for top half of logo.  In the past the logo has always
+% been printed on gray card stock.  For Web use add the gray to the logo
+% Improved calcuations for kerning: kernNcenter()
+%  
+%  ps -> Apple Preview -> export as png at 300DPI
 %
 %%EndComments
 
-%  John Dey Standard Logo for Wegsite use
-%  ps -> pdf -> png
-%
 %  Defines
 /in { 72 mul } bind def
 
@@ -17,23 +23,28 @@
 /width { 4.5 in } bind def
 % Overall height of Logo
 /height { 2.00  72 mul } bind def
-% <TextWidth> width of Text inside Logo 
+% <TextWidth> width of Text inside Logo
 /TextWidth { 4.25 in } def
 
-%  dirivative sizes DO NOT CHANGE 
+%  dirivative sizes DO NOT CHANGE
 /halfH { height 2 div } bind def
 /quarter { height 4 div } bind def
 
 /kernNcenter {
+    %% Set type at current position. calculate kerning to fill space
+    %% <TextWidth>. Kerning can be positive or negative
     %% inputs: string
-    %% side effects: <shiftX> (shift ammount to allow string width to be centered on <width>
-    %%               and fit into <TextWidth>
-    %%               <kernX> kern amounted needed for kshow, for fitting text to <TextWidth>
-    /MyString exch def 
+    %% <shiftX> (shift ammount to allow string width to be
+    %%   centered on <width> and fit into <TextWidth>
+    %% <kernX> kern amounted needed for kshow, for fitting text
+    %%   into <TextWidth>
+    /MyString exch def
     /NumChars MyString length 1 sub def /cWid MyString stringwidth pop def
     /kernX TextWidth cWid sub NumChars div def
     /newWid kernX NumChars mul cWid add def
     /shiftX width newWid sub 2 div def
+    shiftX baseLine rmoveto
+    {kernX 0 rmoveto } MyString kshow
 } def
 
 /Logo {
@@ -43,49 +54,54 @@
   % fill upper half of logo
   .75 setgray
   x y moveto
-  width  0   rlineto 
+  width  0   rlineto
   0 height neg rlineto
   width neg 0  rlineto
-  closepath fill 
+  closepath fill
   % Draw upper box with
   1 setlinewidth
   0 setgray
   x y moveto
-  width  0   rlineto 
+  width  0   rlineto
   0 height neg rlineto
   width neg 0  rlineto
-  closepath stroke 
+  closepath stroke
   % fill Lower black box "Photography"
   0 setgray
   x y height sub moveto
   0 halfH rlineto
-  width 0 rlineto 
+  width 0 rlineto
   0 halfH neg rlineto fill
   %
 
+  % set type used for logo
+  % Positon to lower left of text box; move text up <baseLine> amount
+  % kernNcenter() calculates kerning to fill width set by <TextWidth> based 
+  % on current font size
+  /Helvetica-Bold findfont 68 scalefont setfont
+  /baseLine 18 def
+  /TextWidth { 4.100 in } def
+  0 setgray
+  x y halfH sub moveto 
+  (John Dey) kernNcenter
+
   /Helvetica findfont 68 scalefont setfont
+  /TextWidth { 4.455 in } def
   % White text on black ground
   1 setgray
-  (Photography) kernNcenter 
-  x y height sub moveto shiftX 18 rmoveto
-  { kernX 0 rmoveto } (Photography) kshow
-  
-  
-  /Helvetica-Bold findfont 68 scalefont setfont
-  0 setgray
-  (John Dey) kernNcenter 
-  x y halfH sub moveto shiftX 18 rmoveto
-  {kernX 0 rmoveto } (John Dey) kshow
+  x y height sub moveto
+  (Photography) kernNcenter
+
 } def
 
 % Letter size paper 8.5 x 11
 /paperWid 612 def
 /paperH 792 def
-% 
-% Draw Logo in the middle of the paper 
+%
+% Draw Logo in the middle of the paper
 %
 paperWid width sub 2 div
 paperH 2 div halfH add
-Logo 
+Logo
 
 showpage
