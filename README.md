@@ -2,7 +2,7 @@
 
 ### Business cards and gallery tags for John Dey Photograpy
 
-![Business Card](johnDeySingleBus.jpg)
+![Business Card](johnDeySingleBus.png)
 
 **Why is your business card a program?**
 
