@@ -22,6 +22,23 @@
   12 0 rlineto stroke
 } def
 
+/kernNcenter {
+    %% Set type at current position. calculate kerning to fill space
+    %% <TextWidth>. Kerning can be positive or negative
+    %% argument: string
+    %% <shiftX> (shift ammount to allow string width to be
+    %%   centered on <LogoWid> and fit into <TextWidth>
+    %% <kernX> kern amounted needed for kshow, for fitting text
+    %%   into <TextWidth>
+    /MyString exch def
+    /NumChars MyString length 1 sub def /cWid MyString stringwidth pop def
+    /kernX TextWidth cWid sub NumChars div def
+    /newWid kernX NumChars mul cWid add def
+    /shiftX LogoWid newWid sub 2 div def
+    shiftX baseLine rmoveto
+    {kernX 0 rmoveto } MyString kshow
+} def
+
 % Print logo box and text
 % [x] [y] [width] [height] are inputs
 % x y are lower left of logo box
@@ -48,14 +65,16 @@
   width 0 rlineto 
   0 half neg rlineto fill
   % Draw logo Text
-  /Helvetica findfont half .85 mul scalefont setfont
+    /baseLine 12 def
+    /Helvetica-Bold findfont half .85 mul scalefont setfont
     % Top
+      /TextWidth 2.5 in def
       0 setgray
-      dx dy moveto
-      /kern width (John Dey) stringwidth pop sub skip sub 8 div def 
-      halfskip  half baseline add rmoveto
-    { kern 0 rmoveto } (John Dey) kshow
+      dx dy half add moveto
+      (John Dey) kernNcenter 
+
     % Bottom
+    /Helvetica findfont half .85 mul scalefont setfont
       dx dy moveto
       1 setgray
       /kern width (Photography) stringwidth pop sub skip sub 11 div def 
@@ -68,12 +87,13 @@
     %x 3.5 in add y 1 in add tick 
     x 3.15 in add y 1 in add moveto
     90 rotate
-    (360.649.2731) dup  stringwidth pop 2 div neg 0 rmoveto show
+    (johndey.com) dup  stringwidth pop 2 div neg 0 rmoveto show
     restore
 } def
 
 
 /width 2.75 in def
+/LogoWid 2.75 in def
 /height 1.25 in def
 /x1 .75 in def /x2 4.25 in def /x3 7.75 in def
 /y .5 in def
