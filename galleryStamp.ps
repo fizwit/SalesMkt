@@ -13,16 +13,33 @@
 %  Defines
 /in { 72 mul } bind def
 
-/Helvetica findfont 50 scalefont setfont
-
 % Logo Size; Width and Height
 /LogoWid { 3.75 in} bind def
+/height { 1.72 in} bind def
 /LogoHgt { 4 in } bind def
+% <TextWidth> width of Text inside Logo
 
 %  Height of text box
 /textH { 1.75 72 mul } bind def
 % Half Height of text box
-/halfH { textH 2 div } bind def
+/halfH { height 2 div } bind def
+
+/kernNcenter {
+    %% Set type at current position. calculate kerning to fill space
+    %% <TextWidth>. Kerning can be positive or negative
+    %% inputs: string
+    %% <shiftX> (shift ammount to allow string width to be
+    %%   centered on <LogoWid> and fit into <TextWidth>
+    %% <kernX> kern amounted needed for kshow, for fitting text
+    %%   into <TextWidth>
+    /MyString exch def
+    /NumChars MyString length 1 sub def /cWid MyString stringwidth pop def
+    /kernX TextWidth cWid sub NumChars div def
+    /newWid kernX NumChars mul cWid add def
+    /shiftX LogoWid newWid sub 2 div def
+    shiftX baseLine rmoveto
+    {kernX 0 rmoveto } MyString kshow
+} def
 
 %------ try not to change anything below -----
 /logo {
@@ -32,6 +49,7 @@
   % outer Box
   x y moveto
   1 setlinewidth
+  0 setgray
   LogoWid  0   rlineto
   0 LogoHgt neg rlineto
   LogoWid neg 0  rlineto
@@ -52,13 +70,20 @@
   x 12 add     y textH sub lineheight 3 mul sub moveto
   LogoWid 24 sub 0 rlineto closepath stroke
 
-x y textH sub moveto 8 16 rmoveto  %Lower left
+  0 setgray
+  /Helvetica-Bold findfont 50 scalefont setfont
+  /Helvetica-Bold findfont 50 scalefont setfont
+  /baseLine 16 def
+
+  /TextWidth { 3.45 in } def
+0 setgray
+x y halfH sub moveto %Lower left
+(John Dey) kernNcenter
+
+/Helvetica findfont 50 scalefont setfont
+x y textH sub moveto 8 baseLine rmoveto  %Lower left
 1 setgray
 { -3.5 0 rmoveto } (Photography) kshow
-
-0 setgray
-x y textH 2 div sub moveto 6 16 rmoveto  %Lower left
-{ 6.5 0 rmoveto } (John Dey) kshow
 
 } def
 
