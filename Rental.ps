@@ -1,0 +1,146 @@
+%!PS-Adobe
+%%DocumentFonts: Helvitica-Bold Helvitica
+%%Title: Rental Form 
+%%Creator: John Dey
+%%CreationDate: Nov 28, 2017 
+%%Pages: 1
+%%EndComments
+
+% document history: initally created June 6, 1994
+% Note: this is very sloppy typesetting,
+
+%
+%  User defineable parameters
+%
+/Company1 () def
+/Company2 () def
+/Company3 () def
+/Company4 () def
+
+/in {72 mul} def  %Don't change
+/yor 1 in def  %Y Lower corner of grid box
+/xorig .7 in def  %X Lower corner of grid box
+/grid_height 4.2 in def  %height of  grid (should be mul of line_width)
+/grid_width 7 in def  %width of grid  
+/line_width .35 in def % height of lines
+/quant_width .5 in def % width of quantity column
+/uprice_width .75 in def % width of unit price column
+/price_width  .75 in def % width of amount column
+/hheight .5 in def  %height of title box
+/ystart 730 def
+
+%rule thickness
+/rw 2 def %rule thinkness for bounding box
+/header_rw 1 def %rule thikness for header
+/event_rw .3 def %rule thickness between events
+
+%fonts
+/r_font /Helvetica findfont 12 scalefont def
+/b_font /Helvetica-Bold findfont 12 scalefont def
+/header_font /Helvetica findfont 10 scalefont def
+
+%------------------------------------------------------------
+% Very fragil stuff from here on.
+%------------------------------------------------------------
+
+% Center of document
+/cc grid_width 2 div xorig add def
+% Right margin
+/rm xorig grid_width add 2 in sub def
+
+%left justifiy text stack: x y string
+/line {exch y moveto show stroke /y y 14 sub def} def
+/line12 {exch y moveto show stroke /y y 12 sub def} def
+
+%Right justifiy stack: x, y, string
+/right {dup /str exch def stringwidth pop /strw exch def moveto 
+ strw neg 0 rmoveto str show stroke} def
+
+% Center text stack: y (string)
+/center_text {dup /str exch def stringwidth pop 2 div neg cc add exch moveto
+ str show stroke } def
+
+% Store string width in <strw> leave string on top of stack
+/getstrwid { dup stringwidth pop /strw exch def } def
+
+%  Set right margin and put some text in upper right corner
+r_font setfont
+/y ystart def
+rm (Date:  ) line 
+
+
+% Company
+/y ystart def
+b_font setfont
+xorig (John Dey Photography) line
+header_font setfont
+xorig (3026 Parklane DR NE) line12
+xorig (Bremerton WA 98310) line12
+xorig (360-649-2731) line12
+xorig (john@fuzzdog.com) line12
+
+% Rented to Text
+r_font setfont
+/y 620 def
+xorig y moveto (Rented To) show
+/xCust xorig 1.2 in add def
+/y yor grid_height add 1.2 in add def   % original
+/y 640 def
+xCust Company1 line 
+xCust Company2 line 
+xCust Company3 line 
+xCust Company4 line 
+
+% Set line width and style
+ 2 setlinecap  %line goes past point to make square boxes
+ header_rw setlinewidth
+% Draw Sold Rented Virtical Line
+ newpath
+ % xorig 1 in add yor grid_height add 10 add moveto
+ /yor 792 2 in sub def
+ xorig 1 in add 792 2 in sub moveto
+ 0 -1 in rlineto  stroke
+ 
+% Draw box for grid 
+ rw setlinewidth
+ newpath xorig 3.5 in moveto   % modified
+ 0 grid_height rlineto
+ grid_width 0 rlineto
+ 0 grid_height neg rlineto
+ closepath stroke %draw bounding box
+
+% draw header box
+ header_rw setlinewidth
+ newpath
+ xorig yor grid_height add line_width sub moveto
+ grid_width 0 rlineto stroke %draw header box
+
+% draw horizontal lines in box    %% to high
+ event_rw setlinewidth
+ /yor 3.5 in def
+ newpath xorig yor moveto   % modified   mod
+ 1 1 grid_height line_width div cvi {newpath
+        line_width mul yor add xorig exch moveto
+        grid_width 0 rlineto stroke } for %draw lines 
+
+ header_font setfont
+/y2 yor grid_height add line_width sub 6 add def
+ xorig 3 add
+  y2 moveto (QTY) show
+ xorig 1 in add quant_width add 
+  y2 moveto (Description) show
+
+% Text at bottom of grid 
+r_font setfont
+xorig 3 in moveto (Renter assumes responsibility for replacement value of equipment.) show
+xorig 3 in 16 sub moveto
+       (Opon request equiment needs to be returned.) show
+
+
+% Virtical Lines in grid
+ event_rw setlinewidth
+ newpath xorig quant_width  add yor moveto
+ 0 grid_height rlineto stroke
+
+showpage
+%%Trailer
